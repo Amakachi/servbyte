@@ -1,11 +1,8 @@
 package com.servbyte.ecommerce.entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -19,11 +16,10 @@ public class Restaurant extends AbstractEntity{
     private String restaurantLogo;
     @OneToMany
     private List<Cities> listOfCities;
+    @OneToMany
+    private List<Logistics> logisticsList;
     private String restaurantPhoneNumber;
     @ManyToOne
     private ApplicationUser applicationUser;
-    @OneToMany
-    List<RestaurantMenu> menuCollections;
-
 
 }

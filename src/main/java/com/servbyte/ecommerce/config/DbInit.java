@@ -1,21 +1,34 @@
 package com.servbyte.ecommerce.config;
 
+import com.servbyte.ecommerce.dtos.ApplicationUserDto;
 import com.servbyte.ecommerce.dtos.CitiesDto;
+import com.servbyte.ecommerce.dtos.LogisticsDto;
+import com.servbyte.ecommerce.entities.ApplicationUser;
 import com.servbyte.ecommerce.entities.Cities;
+import com.servbyte.ecommerce.entities.Logistics;
+import com.servbyte.ecommerce.repository.ApplicationUserRepository;
 import com.servbyte.ecommerce.repository.CitiesRepository;
+import com.servbyte.ecommerce.repository.LogisticsRepository;
+import com.servbyte.ecommerce.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class DbInit {
     private final CitiesRepository citiesRepository;
+    private final LogisticsRepository logisticsRepository;
+    private final ApplicationUserRepository userRepository;
 
-    public DbInit(CitiesRepository citiesRepository) {
+    public DbInit(CitiesRepository citiesRepository, LogisticsRepository logisticsRepository, ApplicationUserRepository userRepository) {
         this.citiesRepository = citiesRepository;
+        this.logisticsRepository = logisticsRepository;
+        this.userRepository = userRepository;
     }
 
     @PostConstruct
@@ -33,4 +46,18 @@ public class DbInit {
         });
 
     }
+
+    @PostConstruct
+    private void creatLogistics(){
+        List<LogisticsDto> logisticsDtos = Arrays.asList(new LogisticsDto("Naye Logistics", "naye.png", "naye@company.com", "08079672345", "LAGOS"),
+                new LogisticsDto("Sumec Logistics", "sumec.png", "sumec@company.com", "080796456745", "ABUJA"));
+        logisticsDtos.forEach(company -> {
+            Logistics logistics = new Logistics();
+            BeanUtils.copyProperties(company, logistics);
+            logistics.setCreatedDate(LocalDateTime.now());
+            logisticsRepository.save(logistics);
+        });
+
+    }
+
 }

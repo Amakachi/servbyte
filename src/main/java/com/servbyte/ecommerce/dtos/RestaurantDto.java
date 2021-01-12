@@ -26,5 +26,5 @@ public class RestaurantDto {
     @ApiModelProperty(required = true)
     private String phoneNumber;
     @ApiModelProperty(required = true)
-    private List<RestaurantMenuDto> restaurantMenu;
+    private List<String> logistics;
 }

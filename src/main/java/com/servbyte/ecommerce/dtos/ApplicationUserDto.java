@@ -28,4 +28,14 @@ public class ApplicationUserDto {
     @NotBlank
     @ApiModelProperty(required = true)
     private String role;
+
+    public ApplicationUserDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, @NotBlank String city, @NotBlank String password, String phoneNumber, @NotBlank String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.city = city;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
 }

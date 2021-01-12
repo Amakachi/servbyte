@@ -12,5 +12,4 @@ public class RestaurantMenuDto {
     private int preparationTime;
     private List<String> pictures;
     private String description;
-    private Restaurant restaurant;
 }

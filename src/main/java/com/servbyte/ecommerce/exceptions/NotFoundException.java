@@ -10,6 +10,10 @@ public class NotFoundException extends RuntimeException {
         super(responseCode.getMessage());
         this.code = responseCode.getCode();
     }
+    public NotFoundException(String code, String message){
+        super(message);
+        this.code = code;
+    }
     public String getCode(){
         return this.code;
     }
