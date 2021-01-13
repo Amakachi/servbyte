@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public interface LogisticsService {
-    void registerLogisticsCompany(LogisticsDto logisticsDto);
+    String registerLogisticsCompany(LogisticsDto logisticsDto);
     List<Logistics> fetchAllLogisticsCompany();
 }

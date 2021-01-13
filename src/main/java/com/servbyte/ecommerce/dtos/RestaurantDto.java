@@ -27,4 +27,13 @@ public class RestaurantDto {
     private String phoneNumber;
     @ApiModelProperty(required = true)
     private List<String> logistics;
+
+    public RestaurantDto(@NotBlank String restaurantName, @NotBlank String restaurantEmail, @NotBlank String restaurantLogo, @NotBlank List<String> listOfCities, @NotBlank String phoneNumber, List<String> logistics) {
+        this.restaurantName = restaurantName;
+        this.restaurantEmail = restaurantEmail;
+        this.restaurantLogo = restaurantLogo;
+        this.listOfCities = listOfCities;
+        this.phoneNumber = phoneNumber;
+        this.logistics = logistics;
+    }
 }

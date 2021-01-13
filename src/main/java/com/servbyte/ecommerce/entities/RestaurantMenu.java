@@ -12,7 +12,7 @@ import java.util.List;
 public class RestaurantMenu extends AbstractEntity {
     private String name;
     private double price;
-    private int preparationTime;
+    private int preparationTimeMinute;
     @ElementCollection
     private List<String> pictures;
     private String description;

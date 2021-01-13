@@ -50,7 +50,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 "Ecommerce",
                 "1.0",
                 "",
-                new Contact("chiamaka okenwa", "", "chiamaka@wafosho.com"),
+                new Contact("chiamaka okenwa", "", "chiamakaokenwa@gmail.com"),
                 "",
                 "",
                 Collections.emptyList()

@@ -1,5 +1,6 @@
 package com.servbyte.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -18,8 +19,9 @@ public class Restaurant extends AbstractEntity{
     private List<Cities> listOfCities;
     @OneToMany
     private List<Logistics> logisticsList;
-    private String restaurantPhoneNumber;
+    private String phoneNumber;
     @ManyToOne
+    @JsonIgnore
     private ApplicationUser applicationUser;
 
 }

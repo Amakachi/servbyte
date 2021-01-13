@@ -7,15 +7,18 @@ import com.servbyte.ecommerce.repository.CartRepository;
 import com.servbyte.ecommerce.repository.OrderRepository;
 import com.servbyte.ecommerce.repository.RestaurantMenuRepository;
 import com.servbyte.ecommerce.repository.RestaurantRepository;
+import com.servbyte.ecommerce.service.OrderService;
 import com.servbyte.ecommerce.utility.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
 
-public class OrderServiceImpl {
+@Service
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMenuRepository restaurantMenuRepository;
@@ -29,16 +32,17 @@ public class OrderServiceImpl {
         this.cartRepository = cartRepository;
     }
 
-    public String createOrders(String userId ){
+    public String createOrders(Long userId){
         Order order = new Order();
         ApplicationUser user = AuthenticatedUser.getLoggedInUser();
         List<Cart> cartList = cartRepository.findByApplicationUser(user);
         if(cartList == null) throw new BadRequestException(ApiErrorCodes.INVALID_REQUEST.getKey(), "No cart found");
         order.setCart(cartList);
-
-
-        return null;
-
+        order.setApplicationUser(user);
+        order.setDeliveryTime(calculateDeliveryTime(cartList));
+        order.setTotalPrice(calculateTotalPrice(cartList));
+        orderRepository.save(order);
+        return "Order created successfully for " + user.getFirstName();
     }
 
     private double calculateTotalPrice(List<Cart> cartList){
@@ -46,7 +50,7 @@ public class OrderServiceImpl {
     }
 
     private int calculateMaxPreparationTime(List<Cart> cartList){
-        return cartList.stream().max(Comparator.comparingInt(c -> c.getRestaurantMenu().getPreparationTime())).get().getRestaurantMenu().getPreparationTime();
+        return cartList.stream().max(Comparator.comparingInt(c -> c.getRestaurantMenu().getPreparationTimeMinute())).get().getRestaurantMenu().getPreparationTimeMinute();
     }
 
     private LocalDateTime calculateDeliveryTime(List<Cart> cartList){

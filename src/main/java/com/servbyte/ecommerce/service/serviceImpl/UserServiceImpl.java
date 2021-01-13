@@ -29,9 +29,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,16 +58,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void registerUser(ApplicationUserDto userDTO) {
+    public String registerUser(ApplicationUserDto userDTO) {
         ApplicationUser user = new ApplicationUser();
         BeanUtils.copyProperties(userDTO, user);
-        if(!roleList.stream().anyMatch(role -> user.getRole().equals(role))){
+        if(!roleList.stream().anyMatch(role -> user.getRole().toUpperCase().equals(role))){
             throw new BadRequestException(ApiErrorCodes.INVALID_REQUEST.getKey(), "Role not found");
         }
         String password = bCryptPasswordEncoder.encode(userDTO.getPassword());
         user.setPassword(password);
         user.setCreatedDate(LocalDateTime.now());
         userRepository.save(user);
+        return "User saved successfully";
     }
 
 
@@ -89,6 +88,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public ApplicationUser findUserByEmail(String email) {
         if(email != null) return userRepository.findByEmail(email);
         else throw new BadRequestException(ApiErrorCodes.INVALID_REQUEST.getKey(), "Email connot be empty");
+    }
+
+    public List<String> fetchAllRoles(){
+        return roleList;
     }
 
 

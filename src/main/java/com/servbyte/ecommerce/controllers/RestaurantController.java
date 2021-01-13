@@ -5,13 +5,12 @@ import com.servbyte.ecommerce.dtos.RestaurantMenuDto;
 import com.servbyte.ecommerce.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@Controller
+@RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
     private final RestaurantService restaurantService;
@@ -33,8 +32,7 @@ public class RestaurantController {
 
     @PostMapping("/register")
     public ResponseEntity registerRestaurants(@RequestBody RestaurantDto restaurantDto){
-        restaurantService.registerRestaurant(restaurantDto);
-        return ResponseEntity.ok("Restaurant registered successfully");
+        return ResponseEntity.ok(restaurantService.registerRestaurant(restaurantDto));
     }
 
     @GetMapping("/find-menus/{restaurantId}")
@@ -44,8 +42,7 @@ public class RestaurantController {
 
     @PostMapping("/save-menu/{restaurantId}")
     public ResponseEntity<?> saveMenusByRestaurant(@RequestBody List<RestaurantMenuDto> restaurantMenuDto, @RequestParam Long restaurantID){
-        restaurantService.addMenusToRestaurant(restaurantMenuDto, restaurantID);
-        return ResponseEntity.ok("Menus added succeessfully"); }
+        return ResponseEntity.ok(restaurantService.addMenusToRestaurant(restaurantMenuDto, restaurantID)); }
 
 
     @GetMapping("/all")

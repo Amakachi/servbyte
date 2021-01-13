@@ -23,9 +23,6 @@ public class LogisticsDto {
     @ApiModelProperty(required = true)
     private String companyCity;
 
-    public LogisticsDto() {
-    }
-
     public LogisticsDto(@NotBlank String companyName, @NotBlank String logo, @NotBlank String companyEmail, @NotBlank String companyPhoneNumber, @NotBlank String companyCity) {
         this.companyName = companyName;
         this.logo = logo;

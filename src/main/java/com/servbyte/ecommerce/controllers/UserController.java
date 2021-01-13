@@ -6,11 +6,10 @@ import com.servbyte.ecommerce.service.UserService;
 import com.servbyte.ecommerce.utility.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
 @RequestMapping("/users")
+@RestController
 public class UserController {
     private final UserService userService;
 
@@ -22,13 +21,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody ApplicationUserDto userDTO){
-        userService.registerUser(userDTO);
-        return ResponseEntity.ok("User saved successfully");
+        return ResponseEntity.ok(userService.registerUser(userDTO));
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<?> findByUserName(@PathVariable String username){
-        return ResponseEntity.ok(userService.findUserByEmail(username));
+    public ResponseEntity<?> findByEmail(@PathVariable String email){
+        return ResponseEntity.ok(userService.findUserByEmail(email));
     }
 
     @GetMapping
@@ -45,5 +43,10 @@ public class UserController {
     @GetMapping("/loggedUser")
     public ResponseEntity<?>  getLoggedInUser() {
         return ResponseEntity.ok(AuthenticatedUser.getLoggedInUser());
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<?>  fetchAllRoles() {
+        return ResponseEntity.ok(userService.fetchAllRoles());
     }
 }

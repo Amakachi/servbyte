@@ -12,8 +12,9 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    void registerUser(ApplicationUserDto userDTO);
+    String registerUser(ApplicationUserDto userDTO);
     List<ApplicationUserResponse> findAllUsers();
     ApplicationUser findUserByEmail(String email);
     JwtResponse generateToken(ApplicationUserLoginDto loginDTO);
+    List<String> fetchAllRoles();
 }

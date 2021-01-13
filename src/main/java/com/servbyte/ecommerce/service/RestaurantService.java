@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public interface RestaurantService {
      Restaurant registerRestaurant(RestaurantDto restaurantDto);
-     void addMenusToRestaurant(List<RestaurantMenuDto> restaurantMenuDto, final Long restaurantID);
+     String addMenusToRestaurant(List<RestaurantMenuDto> restaurantMenuDto, final Long restaurantID);
      List<RestaurantMenu> findAllMenusByRestaurant(final Long restaurantId);
      List<Restaurant> getAllRestaurants();
-     List<Restaurant> findRestaurantsByCity(String city);
+    List<Restaurant> findRestaurantsByCity(String city);
      List<Cities> fetchAllCities();
 }
