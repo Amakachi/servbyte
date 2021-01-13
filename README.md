@@ -13,7 +13,7 @@ servbyte ecommerce application
   - User Service
   - Order Service
   - Restaurant Service
-  -Logistics Service
+  - Logistics Service
   
  # Steps
  ## Roles – {USER, RESTAURANT, LOGISTICS}
