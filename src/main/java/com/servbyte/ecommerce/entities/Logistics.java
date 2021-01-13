@@ -1,5 +1,6 @@
 package com.servbyte.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +19,6 @@ public class Logistics extends AbstractEntity{
     private String companyPhoneNumber;
     private String companyCity;
     @ManyToOne
+    @JsonIgnore
     private ApplicationUser applicationUser;
 }

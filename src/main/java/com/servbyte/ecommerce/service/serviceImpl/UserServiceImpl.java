@@ -59,6 +59,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public String registerUser(ApplicationUserDto userDTO) {
+        ApplicationUser existingUser  = userRepository.findByEmail(userDTO.getEmail());
+        if(existingUser != null) throw new BadRequestException(ApiErrorCodes.INVALID_REQUEST.getKey(), "User exists with email "+ userDTO.getEmail());
         ApplicationUser user = new ApplicationUser();
         BeanUtils.copyProperties(userDTO, user);
         if(!roleList.stream().anyMatch(role -> user.getRole().toUpperCase().equals(role))){
